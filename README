@@ -4,20 +4,26 @@ waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wa
 
 RubyForge Project Page  http://rubyforge.org/projects/waveinfo/
 
-
 == Installing
 
 You may get the latest stable version from Rubyforge. Source gems are also available.
 
   $ gem install waveinfo
 
-=== Loading waveinfo gem Itself
+== Synopsis
 
-You have installed the gem already, yeah?
+  require 'rubygems'
+  require 'waveinfo'
+  
+  wave = WaveInfo.new('example.wav')
+  puts "Channels: #{wave.channels}"
+  puts "Sample Rate: #{wave.sample_rate} Hz"
+  puts "Duration: #{wave.duration} secs"
 
- require 'rubygems'
- require 'waveinfo'
+== TODO
 
+* Implement more chunk types
+  - bext
 
 == Contact
 
