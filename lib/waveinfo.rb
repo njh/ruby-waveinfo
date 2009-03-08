@@ -8,18 +8,22 @@ class WaveInfo
   
     # Set default values
     @audio_format_id = 0
+    @bits_per_sample = nil
+    @block_align = nil
+    @byte_rate = nil
     @channels = nil
+    @data_size = nil
+    @sample_rate = nil
     @samples = nil
     
+    # What was passed in to us?
     if file.is_a?(String)
       @io = File.new(file, 'rb')
       read_headers
       @io.close
-    elsif file.is_a?(IO)
+    else
       @io = file
       read_headers
-    else
-      raise "Unsupported file object: #{file}"
     end
   end
   
@@ -54,7 +58,7 @@ class WaveInfo
     end
   end
   
-  # Get the number of channels
+  # Get the number of channels.
   def channels
     @channels
   end
@@ -64,22 +68,22 @@ class WaveInfo
     @sample_rate
   end
 
-  # Get the average number of bytes per second
+  # Get the average number of bytes per second.
   def byte_rate
     @byte_rate
   end
 
-  # Get the number of bytes per sample slice
+  # Get the number of bytes per sample slice.
   def block_align
     @block_align
   end
 
-  # Get the number of bits per sample
+  # Get the number of bits per sample.
   def bits_per_sample
     @bits_per_sample
   end
   
-  # Get the total number of samples
+  # Get the total number of samples.
   def samples
     if @samples
       @samples
@@ -145,12 +149,11 @@ class WaveInfo
   end
   
   def read_fact_chunk(size)
-    if @audio_format_id == 1
-      @samples = read_longint
-    else
-      # Other formats: skip it
-      @io.seek(size,IO::SEEK_CUR)
-    end
+    # Read in the number of samples
+    @samples = read_longint
+
+    # Skip any extra data
+    @io.seek(size-4,IO::SEEK_CUR) if size > 4
   end
   
   def read_fourchar
