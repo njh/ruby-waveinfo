@@ -1,0 +1,28 @@
+== waveinfo
+
+waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files.
+
+RubyForge Project Page  http://rubyforge.org/projects/waveinfo/
+
+
+== Installing
+
+You may get the latest stable version from Rubyforge. Source gems are also available.
+
+  $ gem install waveinfo
+
+=== Loading waveinfo gem Itself
+
+You have installed the gem already, yeah?
+
+ require 'rubygems'
+ require 'waveinfo'
+
+
+== Contact
+
+Author::     Nicholas J Humfrey
+Email::      njh@aelius.com 
+Home Page::  http://www.aelius.com/njh/
+License::    Distributes under the same terms as Ruby
+
