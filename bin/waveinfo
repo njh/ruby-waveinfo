@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'waveinfo'
+
+if (ARGV.size < 1)
+  puts "Usage: waveinfo <file.wav> [<file2.wav> ...]"
+  exit
+end
+
+ARGV.each do |arg|
+  wave = WaveInfo.new(arg)
+  puts "Filename        : #{wave.filename}"
+  puts "Audio Format    : #{wave.audio_format} " + 
+       sprintf("(0x%2.2x)",wave.audio_format_id)
+  puts "Duration        : " + sprintf("%2.2fs", wave.duration)
+  puts "Channels        : #{wave.channels}"
+  puts "Sample Rate     : #{wave.sample_rate}"
+  puts "Bits per Sample : #{wave.bits_per_sample}"
+  puts "Bytes per Block : #{wave.block_align}"
+  puts "Byte rate       : #{wave.byte_rate}"
+  puts "Sample Count    : #{wave.samples}"
+  puts "Audio Length    : #{wave.size} bytes"
+  puts
+end
