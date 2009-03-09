@@ -59,7 +59,9 @@ class WaveInfo
       when 0x40 then
         "G.721"
       when 0x50 then
-        "MPEG Audio"
+        "MPEG-1 Audio"
+      when 0x55 then
+        "MPEG Audio Layer 3"
       else
         "Unknown (#{@audio_format_id})"
     end

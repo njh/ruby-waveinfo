@@ -51,6 +51,10 @@ describe WaveInfo do
     it "should get the audio duration right" do
       @wav.duration.should == 0.4
     end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
   end
 
   describe "parsing a Mono 8kHz GSM file with a 'fact' chunk" do
@@ -97,6 +101,316 @@ describe WaveInfo do
 
     it "should get the audio duration right" do
       @wav.duration.should == 0.4
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
+  describe "parsing a Stereo 44.1kHz 16-bit PCM file with a 'fact' chunk" do
+    before :each do
+      @filepath = sample_path('testcase_44k_stereo_16bit_pcm')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 1
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'PCM'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 2
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 44100
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 176400
+    end
+    
+    it "should get the block align value right" do
+      @wav.block_align.should == 4
+    end
+    
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 16
+    end
+    
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 100000
+    end
+    
+    it "should get the number of samples right" do
+      @wav.samples.should == 25000
+    end
+
+    it "should get the audio duration right" do
+      (@wav.duration * 1000).to_i.should == 566
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
+  describe "parsing a Mono 11kHz Microsoft ADPCM file with a 'fact' chunk" do
+    before :each do
+      @filepath = sample_path('sine_11k_mono_ms_adpcm')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 2
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'Microsoft ADPCM'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 1
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 11025
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 5784
+    end
+    
+    it "should get the block align value right" do
+      @wav.block_align.should == 128
+    end
+    
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 4
+    end
+    
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 2432
+    end
+    
+    it "should get the number of samples right" do
+      @wav.samples.should == 4410
+    end
+
+    it "should get the audio duration right" do
+      @wav.duration.should == 0.4
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
+  describe "parsing a Mono 11kHz 8-bit PCM file with no 'fact' chunk" do
+    before :each do
+      @filepath = sample_path('sine_11k_mono_8bit_pcm')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 1
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'PCM'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 1
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 11025
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 11025
+    end
+    
+    it "should get the block align value right" do
+      @wav.block_align.should == 1
+    end
+    
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 8
+    end
+    
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 4410
+    end
+    
+    it "should get the number of samples right" do
+      @wav.samples.should == 4410
+    end
+
+    it "should get the audio duration right" do
+      @wav.duration.should == 0.4
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
+  describe "parsing a Mono 11kHz a-law file with a 'fact' chunk" do
+    before :each do
+      @filepath = sample_path('sine_11k_mono_alaw')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 6
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'a-law'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 1
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 11025
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 11025
+    end
+    
+    it "should get the block align value right" do
+      @wav.block_align.should == 1
+    end
+    
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 8
+    end
+    
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 4410
+    end
+    
+    it "should get the number of samples right" do
+      @wav.samples.should == 4410
+    end
+
+    it "should get the audio duration right" do
+      @wav.duration.should == 0.4
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
+  describe "parsing a Mono 11kHz u-law file with a 'fact' chunk" do
+    before :each do
+      @filepath = sample_path('sine_11k_mono_ulaw')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 7
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'u-law'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 1
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 11025
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 11025
+    end
+    
+    it "should get the block align value right" do
+      @wav.block_align.should == 1
+    end
+    
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 8
+    end
+    
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 4410
+    end
+    
+    it "should get the number of samples right" do
+      @wav.samples.should == 4410
+    end
+
+    it "should get the audio duration right" do
+      @wav.duration.should == 0.4
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
+  describe "parsing a Mono 11kHz IMA ADPCM file with a 'fact' chunk" do
+    before :each do
+      @filepath = sample_path('sine_11k_mono_ima_adpcm')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 17
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'IMA ADPCM'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 1
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 11025
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 5589
+    end
+    
+    it "should get the block align value right" do
+      @wav.block_align.should == 256
+    end
+    
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 4
+    end
+    
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 2304
+    end
+    
+    it "should get the number of samples right" do
+      @wav.samples.should == 4410
+    end
+
+    it "should get the audio duration right" do
+      @wav.duration.should == 0.4
+    end
+    
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
     end
   end
   

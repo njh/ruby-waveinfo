@@ -21,7 +21,7 @@ spec = Gem::Specification.new do |s|
   s.summary           = "Pure-ruby gem to get the information from the headers of Wave (.wav) files." 
   s.rubyforge_project = "waveinfo" 
   s.description       = "waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files."
-  s.files             = FileList["Rakefile", "lib/wavinfo.rb", "example.rb"]
+  s.files             = FileList["Rakefile", "lib/waveinfo.rb", "spec/*.rb", "samples/*.wav"]
   s.executables       = ['waveinfo']
   s.require_path      = "lib"
   

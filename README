@@ -32,6 +32,7 @@ You may get the latest stable version from Rubyforge. Source gems are also avail
   - DISP - Title
   - cart - CartChunk/aes46-2002
   - LIST
+* Test against more weird Wave files
 
 == Contact
 
