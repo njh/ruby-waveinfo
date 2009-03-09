@@ -8,7 +8,7 @@ describe WaveInfo do
 
   describe "parsing a Mono 11kHz PCM file with no 'fact' chunk" do
     before :each do
-      @filepath = fixture_path('sine')
+      @filepath = sample_path('sine_11k_mono_16bit_pcm')
       @wav = WaveInfo.new( @filepath )
     end
 
@@ -55,7 +55,7 @@ describe WaveInfo do
 
   describe "parsing a Mono 8kHz GSM file with a 'fact' chunk" do
     before :each do
-      @filepath = fixture_path('sine_gsm')
+      @filepath = sample_path('sine_8k_mono_gsm')
       @wav = WaveInfo.new( @filepath )
     end
 
