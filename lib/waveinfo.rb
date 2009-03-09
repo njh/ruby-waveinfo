@@ -63,7 +63,7 @@ class WaveInfo
       when 0x55 then
         "MPEG Audio Layer 3"
       else
-        "Unknown (#{@audio_format_id})"
+        sprintf("Unknown (0x%2.2x)",@audio_format_id)
     end
   end
   

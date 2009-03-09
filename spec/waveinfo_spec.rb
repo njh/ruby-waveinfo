@@ -429,5 +429,10 @@ describe WaveInfo do
       data = StringIO.new("RIFF\4\0\0\0WAVE")
       lambda { WaveInfo.new( data ) }.should_not raise_error
     end
+    
+    it "should set the audio format name to Unknown for an unknown audio codec" do
+      data = StringIO.new("RIFF\x14\0\0\0WAVEfmt \x0a\0\0\0\xff\x00\x02\0\0\0\0\0\0\0\0\0\0\0\0\0")
+      WaveInfo.new( data ).audio_format.should == 'Unknown (0xff)'
+    end
   end
 end
