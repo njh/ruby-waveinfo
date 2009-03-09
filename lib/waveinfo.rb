@@ -19,39 +19,46 @@ class WaveInfo
     # What was passed in to us?
     if file.is_a?(String)
       @io = File.new(file, 'rb')
+      @filepath = @io.path
       read_headers
       @io.close
     else
       @io = file
+      @filepath = @io.path
       read_headers
     end
   end
   
-  # Get the identifier of the audio codec (for example PCM would be 1)
+  # Return the name of the input file.
+  def filename
+    File.basename(@filepath)
+  end
+  
+  # Get the identifier of the audio codec (for example PCM would be 1).
   def audio_format_id
     @audio_format_id
   end
 
-  # Get the name of the audio codec (for example 'PCM')
+  # Get the name of the audio codec (for example 'PCM').
   def audio_format
     case @audio_format_id
-      when 1 then
+      when 0x01 then
         "PCM"
-      when 2 then
+      when 0x02 then
         "Microsoft ADPCM"
-      when 6 then
+      when 0x06 then
         "a-law"
-      when 7 then
+      when 0x07 then
         "u-law"
-      when 17 then
+      when 0x11 then
         "IMA ADPCM"
-      when 20 then
+      when 0x14 then
         "G.723"
-      when 49 then
+      when 0x31 then
         "GSM"
-      when 64 then
+      when 0x40 then
         "G.721"
-      when 80 then
+      when 0x50 then
         "MPEG Audio"
       else
         "Unknown (#{@audio_format_id})"
@@ -63,7 +70,7 @@ class WaveInfo
     @channels
   end
 
-  # Get the sample rate (in Hz)
+  # Get the sample rate (in Hz).
   def sample_rate
     @sample_rate
   end
@@ -92,12 +99,12 @@ class WaveInfo
     end
   end
   
-  # Get the length of the audio data (in bytes)
+  # Get the length of the audio data (in bytes).
   def size
     @data_size
   end
   
-  # Get the duration of the audio (in seconds)
+  # Get the duration of the audio (in seconds).
   def duration
     samples.to_f / sample_rate.to_f
   end
@@ -145,7 +152,7 @@ class WaveInfo
     @bits_per_sample = read_shortint
     
     # Skip any extra parameters
-    @io.seek(size-16,IO::SEEK_CUR)
+    @io.seek(size-16,IO::SEEK_CUR) if size > 16
   end
   
   def read_fact_chunk(size)
