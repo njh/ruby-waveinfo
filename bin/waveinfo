@@ -15,7 +15,7 @@ ARGV.each do |arg|
        sprintf("(0x%2.2x)",wave.audio_format_id)
   puts "Duration        : " + sprintf("%2.2fs", wave.duration)
   puts "Channels        : #{wave.channels}"
-  puts "Sample Rate     : #{wave.sample_rate}"
+  puts "Sample Rate     : #{wave.sample_rate}Hz"
   puts "Bits per Sample : #{wave.bits_per_sample}"
   puts "Bytes per Block : #{wave.block_align}"
   puts "Byte rate       : #{wave.byte_rate}"
