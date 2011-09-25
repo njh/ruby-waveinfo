@@ -16,10 +16,9 @@ spec = Gem::Specification.new do |s|
   s.version           = VERS
   s.author            = "Nicholas J Humfrey"
   s.email             = "njh@aelius.com"
-  s.homepage          = "http://waveinfo.rubyforge.org"
+  s.homepage          = "http://github.com/njh/ruby-waveinfo"
   s.platform          = Gem::Platform::RUBY
   s.summary           = "Pure-ruby gem to get the information from the headers of Wave (.wav) files." 
-  s.rubyforge_project = "waveinfo" 
   s.description       = "waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files."
   s.files             = FileList["Rakefile", "lib/waveinfo.rb", "spec/*.rb", "samples/*.wav"]
   s.executables       = ['waveinfo']
@@ -27,7 +26,7 @@ spec = Gem::Specification.new do |s|
   
   # rdoc
   s.has_rdoc          = true
-  s.extra_rdoc_files  = ["README", "COPYING"]
+  s.extra_rdoc_files  = ["README.md", "COPYING"]
   
   # Build Dependencies
   #s.add_dependency 'rake'     '~> 0.8'
@@ -102,11 +101,6 @@ Rake::RDocTask.new("rdoc") { |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = "waveinfo Documentation"
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.main = "README"
-  rdoc.rdoc_files.include("README", "COPYING", "lib/waveinfo.rb")
+  rdoc.main = "README.md"
+  rdoc.rdoc_files.include("README.md", "COPYING", "lib/waveinfo.rb")
 }
-
-desc "Upload rdoc to rubyforge"
-task :upload_rdoc => [:rdoc] do
-  sh %{/usr/bin/scp -r -p rdoc/* waveinfo.rubyforge.org:/var/www/gforge-projects/waveinfo}
-end
