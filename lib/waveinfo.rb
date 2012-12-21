@@ -24,7 +24,7 @@ class WaveInfo
       @io.close
     else
       @io = file
-      @filepath = @io.path
+      @filepath = @io.path if @io.respond_to?(:path)
       read_headers
     end
   end
