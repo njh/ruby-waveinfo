@@ -180,7 +180,7 @@ class WaveInfo
   end
   
   # Exception raised if there is a problem parsing the Wave file
-  class FileFormatError < Exception
+  class FileFormatError < StandardError
   end
   
 end
