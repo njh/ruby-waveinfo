@@ -413,7 +413,58 @@ describe WaveInfo do
       @wav.filename.should == File.basename(@filepath)
     end
   end
-  
+
+  describe "parsing a Stereo 96kHz 24bit RF64" do
+    before :each do
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      @wav.audio_format_id.should == 65534
+    end
+
+    it "should get the audio format name right" do
+      @wav.audio_format.should == 'Extensible wave format'
+    end
+
+    it "should get the number of channels right" do
+      @wav.channels.should == 2
+    end
+
+    it "should get the sample rate right" do
+      @wav.sample_rate.should == 96000
+    end
+
+    it "should get the byte rate right" do
+      @wav.byte_rate.should == 576000
+    end
+
+    it "should get the block align value right" do
+      @wav.block_align.should == 6
+    end
+
+    it "should get the bits per sample right" do
+      @wav.bits_per_sample.should == 24
+    end
+
+    it "should get the audio length in bytes right" do
+      @wav.size.should == 4294967295
+    end
+
+    it "should get the number of samples right" do
+      @wav.samples.should == 715827882
+    end
+
+    it "should get the audio duration right" do
+      @wav.duration.should == 7456.5404375
+    end
+
+    it "should know the name of the file read from" do
+      @wav.filename.should == File.basename(@filepath)
+    end
+  end
+
   describe "parsing an invalid WAVE file" do
     it "should throw an exception if the first chunk id isn't 'RIFF'" do
       data = StringIO.new("INVALID")
