@@ -3,6 +3,7 @@ waveinfo
 
 waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files.
 
+
 Installing
 ----------
 
@@ -43,7 +44,7 @@ Resources
 ---------
 
 * GitHub Project: http://github.com/njh/ruby-waveinfo
-* Documentation: http://rdoc.info/github/njh/ruby-waveinfo/master/frames
+* Documentation: http://rdoc.info/gems/waveinfo
 
 Contact
 -------
