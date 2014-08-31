@@ -421,47 +421,47 @@ describe WaveInfo do
     end
 
     it "should get the audio format id right" do
-      @wav.audio_format_id.should == 65534
+      expect(@wav.audio_format_id).to eq(65534)
     end
 
     it "should get the audio format name right" do
-      @wav.audio_format.should == 'Extensible wave format'
+      expect(@wav.audio_format).to eq('Extensible wave format')
     end
 
     it "should get the number of channels right" do
-      @wav.channels.should == 2
+      expect(@wav.channels).to eq(2)
     end
 
     it "should get the sample rate right" do
-      @wav.sample_rate.should == 96000
+      expect(@wav.sample_rate).to eq(96000)
     end
 
     it "should get the byte rate right" do
-      @wav.byte_rate.should == 576000
+      expect(@wav.byte_rate).to eq(576000)
     end
 
     it "should get the block align value right" do
-      @wav.block_align.should == 6
+      expect(@wav.block_align).to eq(6)
     end
 
     it "should get the bits per sample right" do
-      @wav.bits_per_sample.should == 24
+      expect(@wav.bits_per_sample).to eq(24)
     end
 
     it "should get the audio length in bytes right" do
-      @wav.size.should == 4294967295
+      expect(@wav.size).to eq(4294967295)
     end
 
     it "should get the number of samples right" do
-      @wav.samples.should == 715827882
+      expect(@wav.samples).to eq(715827882)
     end
 
     it "should get the audio duration right" do
-      @wav.duration.should == 7456.5404375
+      expect(@wav.duration).to eq(7456.5404375)
     end
 
     it "should know the name of the file read from" do
-      @wav.filename.should == File.basename(@filepath)
+      expect(@wav.filename).to eq(File.basename(@filepath))
     end
   end
 
