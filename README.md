@@ -3,6 +3,7 @@ waveinfo
 
 waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files.
 
+
 Installing
 ----------
 
@@ -43,7 +44,15 @@ Resources
 ---------
 
 * GitHub Project: http://github.com/njh/ruby-waveinfo
-* Documentation: http://rdoc.info/github/njh/ruby-waveinfo/master/frames
+* Documentation: http://rdoc.info/gems/waveinfo
+
+
+License
+-------
+
+The waveinfo ruby gem is licensed under the terms of the MIT license.
+See the file LICENSE for details.
+
 
 Contact
 -------
@@ -51,5 +60,4 @@ Contact
 * Author:    Nicholas J Humfrey
 * Email:     njh@aelius.com
 * Home Page: http://www.aelius.com/njh/
-* License:   Distributes under the same terms as Ruby
 

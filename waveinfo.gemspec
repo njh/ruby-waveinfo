@@ -11,11 +11,11 @@ Gem::Specification.new do |gem|
   gem.homepage    = 'http://github.com/njh/ruby-waveinfo'
   gem.summary     = 'Pure-ruby gem to get the information from the headers of Wave (.wav) files.'
   gem.description = 'waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files.'
-  gem.license     = 'Ruby' if gem.respond_to?(:license=)
+  gem.license     = 'MIT' if gem.respond_to?(:license=)
 
   gem.rubyforge_project = 'waveinfo'
 
-  gem.files         = %w(README.md COPYING GPL) + Dir.glob('lib/**/*.rb')
+  gem.files         = %w(README.md LICENSE.md) + Dir.glob('lib/**/*.rb')
   gem.test_files    = Dir.glob('spec/*_spec.rb')
   gem.executables   = %w(waveinfo)
   gem.require_paths = %w(lib)
