@@ -62,6 +62,8 @@ class WaveInfo
         "MPEG-1 Audio"
       when 0x55 then
         "MPEG Audio Layer 3"
+      when 0xFFFE
+        "Extensible wave format"
       else
         sprintf("Unknown (0x%2.2x)",@audio_format_id)
     end
@@ -116,7 +118,7 @@ class WaveInfo
   def read_headers
     # Read in the chunk header
     chunk_id = read_fourchar
-    raise FileFormatError.new("Chunk id is not 'RIFF'") if chunk_id != 'RIFF'
+    raise FileFormatError.new("Chunk id is not 'RIFF' or 'RF64'") if chunk_id != 'RIFF' && chunk_id != 'RF64'
     chunk_size = read_longint
     chunk_format = read_fourchar
     raise FileFormatError.new("Chunk format is not 'WAVE'") if chunk_format != 'WAVE'
@@ -180,7 +182,7 @@ class WaveInfo
   end
   
   # Exception raised if there is a problem parsing the Wave file
-  class FileFormatError < Exception
+  class FileFormatError < StandardError
   end
   
 end
