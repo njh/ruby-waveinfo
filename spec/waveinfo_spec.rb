@@ -9,7 +9,6 @@ describe WaveInfo do
   describe "parsing a Mono 11kHz PCM file with no 'fact' chunk" do
     before :each do
       @filepath = sample_path('sine_11k_mono_16bit_pcm')
-      # WaveInfo.debug = false
       @wav = WaveInfo.new( @filepath )
     end
 
@@ -485,6 +484,28 @@ describe WaveInfo do
     it "should set the audio format name to Unknown for an unknown audio codec" do
       data = StringIO.new("RIFF\x14\0\0\0WAVEfmt \x0a\0\0\0\xff\x00\x02\0\0\0\0\0\0\0\0\0\0\0\0\0")
       expect(WaveInfo.new( data ).audio_format).to eq('Unknown (0xff)')
+    end
+  end
+
+  describe "outputs stderr when debug is true" do
+    it "should default to true" do
+      $stderr.should_receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should output to stderr when true" do
+      WaveInfo.debug = true
+      $stderr.should_receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should not output to stderr when false" do
+      WaveInfo.debug = false
+      $stderr.should_not_receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
     end
   end
 end
