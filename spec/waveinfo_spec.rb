@@ -9,6 +9,7 @@ describe WaveInfo do
   describe "parsing a Mono 11kHz PCM file with no 'fact' chunk" do
     before :each do
       @filepath = sample_path('sine_11k_mono_16bit_pcm')
+      # WaveInfo.debug = false
       @wav = WaveInfo.new( @filepath )
     end
 

@@ -2,6 +2,12 @@
 
 class WaveInfo
 
+  # Set WaveInfo.debug = false to suppress warning messages.
+  class << self
+    attr_accessor :debug
+  end
+  self.debug = true
+
   # Create a new WaveInfo object to get information and metadata about a 
   # Wave file (.wav). 'file' can either be a filename or an IO object.
   def initialize(file)
@@ -139,7 +145,7 @@ class WaveInfo
           @io.seek(subchunk_size,IO::SEEK_CUR)
         else
           pos = sprintf("0x%x", position)
-          $stderr.puts "Warning: unsupported sub-chunk at #{pos}: #{subchunk_id}"
+          $stderr.puts "Warning: unsupported sub-chunk at #{pos}: #{subchunk_id}" if WaveInfo.debug
           @io.seek(subchunk_size,IO::SEEK_CUR)
       end
       position += subchunk_size + 8
