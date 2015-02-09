@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/njh/ruby-waveinfo.svg)](https://travis-ci.org/njh/ruby-waveinfo)
+
 waveinfo
 ========
 
