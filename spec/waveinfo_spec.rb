@@ -486,4 +486,26 @@ describe WaveInfo do
       expect(WaveInfo.new( data ).audio_format).to eq('Unknown (0xff)')
     end
   end
+
+  describe "outputs stderr when debug is true" do
+    it "should default to true" do
+      expect($stderr).to receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should output to stderr when true" do
+      WaveInfo.debug = true
+      expect($stderr).to receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should not output to stderr when false" do
+      WaveInfo.debug = false
+      expect($stderr).to_not receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
+      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+  end
 end
