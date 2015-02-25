@@ -487,24 +487,32 @@ describe WaveInfo do
     end
   end
 
-  describe "outputs stderr when debug is true" do
-    it "should default to true" do
-      expect($stderr).to receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
-      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+  describe "WaveInfo.debug" do
+    before :each do
+      $realstderr = $stderr
+      $stderr = StringIO.new
+      @filepath = sample_path('unsupported_subchunk')
+      @wav = WaveInfo.new( @filepath )
+    end
+    
+    after :each do
+      $stderr = $realstderr unless $realstderr.nil?
+    end
+
+    it "should default to outputting to stderr" do
+      expect($stderr).to receive(:puts).with("Warning: unsupported sub-chunk at 0x22a0: XYZZ")
       @wav = WaveInfo.new( @filepath )
     end
 
     it "should output to stderr when true" do
       WaveInfo.debug = true
-      expect($stderr).to receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
-      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      expect($stderr).to receive(:puts).with("Warning: unsupported sub-chunk at 0x22a0: XYZZ")
       @wav = WaveInfo.new( @filepath )
     end
 
     it "should not output to stderr when false" do
       WaveInfo.debug = false
-      expect($stderr).to_not receive(:puts).with("Warning: unsupported sub-chunk at 0xc: ds64")
-      @filepath = sample_path('empty_96k_stereo_24bit_rf64')
+      expect($stderr).to_not receive(:puts).with("Warning: unsupported sub-chunk at 0x22a0: XYZZ")
       @wav = WaveInfo.new( @filepath )
     end
   end
