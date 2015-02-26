@@ -119,6 +119,7 @@ class WaveInfo
     samples.to_f / sample_rate.to_f
   end
 
+
   private
 
   def read_headers
@@ -141,7 +142,6 @@ class WaveInfo
     read_subchunks(position)
   end
 
-    
   def read_subchunks(position)
     # Read in each of the sub-chunks
     while(@chunk_size - position) > 0 do
