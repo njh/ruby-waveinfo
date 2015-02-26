@@ -414,7 +414,58 @@ describe WaveInfo do
     end
   end
 
-  describe "parsing a Stereo 96kHz 24bit RF64" do
+  describe "parsing a Mono 11kHz PCM file in the RF64 format" do
+    before :each do
+      @filepath = sample_path('sine_11k_mono_16bit_pcm_rf64')
+      @wav = WaveInfo.new( @filepath )
+    end
+
+    it "should get the audio format id right" do
+      expect(@wav.audio_format_id).to eq(65534)
+    end
+
+    it "should get the audio format name right" do
+      expect(@wav.audio_format).to eq('Extensible wave format')
+    end
+
+    it "should get the number of channels right" do
+      expect(@wav.channels).to eq(1)
+    end
+
+    it "should get the sample rate right" do
+      expect(@wav.sample_rate).to eq(11025)
+    end
+
+    it "should get the byte rate right" do
+      expect(@wav.byte_rate).to eq(22050)
+    end
+    
+    it "should get the block align value right" do
+      expect(@wav.block_align).to eq(2)
+    end
+    
+    it "should get the bits per sample right" do
+      expect(@wav.bits_per_sample).to eq(16)
+    end
+    
+    it "should get the audio length in bytes right" do
+      expect(@wav.size).to eq(8820)
+    end
+    
+    it "should get the number of samples right" do
+      expect(@wav.samples).to eq(4410)
+    end
+
+    it "should get the audio duration right" do
+      expect(@wav.duration).to eq(0.4)
+    end
+    
+    it "should know the name of the file read from" do
+      expect(@wav.filename).to eq(File.basename(@filepath))
+    end
+  end
+
+  describe "parsing a truncated Stereo 96kHz 24bit RF64" do
     before :each do
       @filepath = sample_path('empty_96k_stereo_24bit_rf64')
       @wav = WaveInfo.new( @filepath )
@@ -449,15 +500,15 @@ describe WaveInfo do
     end
 
     it "should get the audio length in bytes right" do
-      expect(@wav.size).to eq(4294967295)
+      expect(@wav.size).to eq(4298665680)
     end
 
     it "should get the number of samples right" do
-      expect(@wav.samples).to eq(715827882)
+      expect(@wav.samples).to eq(716444280)
     end
 
     it "should get the audio duration right" do
-      expect(@wav.duration).to eq(7456.5404375)
+      expect(@wav.duration).to eq(7462.96125)
     end
 
     it "should know the name of the file read from" do

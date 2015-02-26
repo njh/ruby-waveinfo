@@ -123,15 +123,28 @@ class WaveInfo
 
   def read_headers
     # Read in the chunk header
-    chunk_id = read_fourchar
-    raise FileFormatError.new("Chunk id is not 'RIFF' or 'RF64'") if chunk_id != 'RIFF' && chunk_id != 'RF64'
-    chunk_size = read_longint
-    chunk_format = read_fourchar
-    raise FileFormatError.new("Chunk format is not 'WAVE'") if chunk_format != 'WAVE'
+    @chunk_id = read_fourchar
+    @chunk_size = read_longint
+    @chunk_format = read_fourchar
+    raise FileFormatError.new("Chunk format is not 'WAVE'") unless @chunk_format == 'WAVE'
+
+    if @chunk_id == 'RIFF'
+      position = 0xC
+    elsif @chunk_id == 'RF64'
+      # Next sub-chunk *has* to be a 'ds64'
+      subchunk_size = read_ds64_chunk
+      position = 0xC + subchunk_size
+    else
+      raise FileFormatError.new("Primary chunk id is not 'RIFF' or 'RF64'")
+    end
+
+    read_subchunks(position)
+  end
+
     
+  def read_subchunks(position)
     # Read in each of the sub-chunks
-    position = 0x0C
-    while(chunk_size-position) > 0 do
+    while(@chunk_size - position) > 0 do
       subchunk_id = read_fourchar
       subchunk_size = read_longint
       case subchunk_id
@@ -140,9 +153,11 @@ class WaveInfo
         when 'fact'
           read_fact_chunk(subchunk_size)
         when 'data'
+          unless subchunk_size == 0xFFFFFFFF
           @data_size = subchunk_size
+          end
           # Skip over the wave data
-          @io.seek(subchunk_size,IO::SEEK_CUR)
+          @io.seek(@data_size,IO::SEEK_CUR)
         else
           pos = sprintf("0x%x", position)
           $stderr.puts "Warning: unsupported sub-chunk at #{pos}: #{subchunk_id}" if WaveInfo.debug
@@ -167,12 +182,35 @@ class WaveInfo
   
   def read_fact_chunk(size)
     # Read in the number of samples
-    @samples = read_longint
+    sample_count = read_longint
+    unless sample_count == 0xFFFFFFFF
+      @samples = sample_count
+    end
 
     # Skip any extra data
     @io.seek(size-4,IO::SEEK_CUR) if size > 4
   end
   
+  def read_ds64_chunk
+    subchunk_id = read_fourchar
+    raise FileFormatError.new("First sub-chunk of RF64 file is not 'ds64'") unless subchunk_id == 'ds64'
+    subchunk_size = read_longint
+
+    riff_size_low = read_longint
+    riff_size_high = read_longint
+    data_size_low = read_longint
+    data_size_high = read_longint
+    sample_count_low = read_longint
+    sample_count_high = read_longint
+
+    @data_size = (data_size_high << 32) + data_size_low
+    @samples = (sample_count_high << 32) + sample_count_low
+    @chunk_size = (riff_size_high << 32) + riff_size_low
+
+    # Skip any extra data
+    @io.seek(subchunk_size-24,IO::SEEK_CUR) if subchunk_size > 24
+  end
+
   def read_fourchar
     @io.read(4)
   end
