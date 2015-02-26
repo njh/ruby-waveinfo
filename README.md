@@ -26,21 +26,6 @@ Synopsis
     puts "Duration: #{wave.duration} secs"
 
 
-TODO
-----
-
-* Add support for the extensible format which uses GUIDs
-* Inplement more validity checks
-  - file is shorter than reported chunk size
-  - file is longer than reported chunk size
-* Implement more chunk types
-  - bext - Broadcast Wave Extention
-  - mext - MPEG audio extension chunk
-  - DISP - Title
-  - cart - CartChunk/aes46-2002
-  - LIST
-* Test against more weird Wave files
-
 
 Resources
 ---------
