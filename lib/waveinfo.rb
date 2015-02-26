@@ -8,10 +8,10 @@ class WaveInfo
   end
   self.debug = true
 
-  # Create a new WaveInfo object to get information and metadata about a 
+  # Create a new WaveInfo object to get information and metadata about a
   # Wave file (.wav). 'file' can either be a filename or an IO object.
   def initialize(file)
-  
+
     # Set default values
     @audio_format_id = 0
     @bits_per_sample = nil
@@ -21,7 +21,7 @@ class WaveInfo
     @data_size = nil
     @sample_rate = nil
     @samples = nil
-    
+
     # What was passed in to us?
     if file.is_a?(String)
       @io = File.new(file, 'rb')
@@ -34,12 +34,12 @@ class WaveInfo
       read_headers
     end
   end
-  
+
   # Return the name of the input file.
   def filename
     File.basename(@filepath)
   end
-  
+
   # Get the identifier of the audio codec (for example PCM would be 1).
   def audio_format_id
     @audio_format_id
@@ -74,7 +74,7 @@ class WaveInfo
         sprintf("Unknown (0x%2.2x)",@audio_format_id)
     end
   end
-  
+
   # Get the number of channels.
   def channels
     @channels
@@ -99,7 +99,7 @@ class WaveInfo
   def bits_per_sample
     @bits_per_sample
   end
-  
+
   # Get the total number of samples.
   def samples
     if @samples
@@ -108,12 +108,12 @@ class WaveInfo
       @data_size / @block_align
     end
   end
-  
+
   # Get the length of the audio data (in bytes).
   def size
     @data_size
   end
-  
+
   # Get the duration of the audio (in seconds).
   def duration
     samples.to_f / sample_rate.to_f
@@ -128,7 +128,7 @@ class WaveInfo
     chunk_size = read_longint
     chunk_format = read_fourchar
     raise FileFormatError.new("Chunk format is not 'WAVE'") if chunk_format != 'WAVE'
-    
+
     # Read in each of the sub-chunks
     position = 0x0C
     while(chunk_size-position) > 0 do
@@ -150,7 +150,7 @@ class WaveInfo
       end
       position += subchunk_size + 8
     end
-    
+
   end
 
   def read_fmt_chunk(size)
@@ -160,11 +160,11 @@ class WaveInfo
     @byte_rate = read_longint
     @block_align = read_shortint
     @bits_per_sample = read_shortint
-    
+
     # Skip any extra parameters
     @io.seek(size-16,IO::SEEK_CUR) if size > 16
   end
-  
+
   def read_fact_chunk(size)
     # Read in the number of samples
     @samples = read_longint
@@ -172,23 +172,23 @@ class WaveInfo
     # Skip any extra data
     @io.seek(size-4,IO::SEEK_CUR) if size > 4
   end
-  
+
   def read_fourchar
     @io.read(4)
   end
-  
+
   def read_longint
     bytes = @io.read(4)
     bytes ? bytes.unpack('V').first : nil
   end
-  
+
   def read_shortint
     bytes = @io.read(2)
     bytes ? bytes.unpack('v').first : nil
   end
-  
+
   # Exception raised if there is a problem parsing the Wave file
   class FileFormatError < StandardError
   end
-  
+
 end
