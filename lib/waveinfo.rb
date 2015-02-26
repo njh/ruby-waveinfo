@@ -158,6 +158,10 @@ class WaveInfo
           end
           # Skip over the wave data
           @io.seek(@data_size,IO::SEEK_CUR)
+        when nil
+          # Give up if read fails
+          $stderr.puts "Warning: read error before reaching end of file" if WaveInfo.debug
+          break
         else
           pos = sprintf("0x%x", position)
           $stderr.puts "Warning: unsupported sub-chunk at #{pos}: #{subchunk_id}" if WaveInfo.debug
