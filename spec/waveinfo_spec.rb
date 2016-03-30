@@ -536,6 +536,17 @@ describe WaveInfo do
       data = StringIO.new("RIFF\x14\0\0\0WAVEfmt \x0a\0\0\0\xff\x00\x02\0\0\0\0\0\0\0\0\0\0\0\0\0")
       expect(WaveInfo.new( data ).audio_format).to eq('Unknown (0xff)')
     end
+    
+    it "duration should be zero if WAVE file is valid but has no sub-chunks" do
+      data = StringIO.new("RIFF\4\0\0\0WAVE")
+      expect(WaveInfo.new( data ).duration).to eq(0)
+    end
+    
+    it "samples should be zero if WAVE file is valid but has no sub-chunks" do
+      data = StringIO.new("RIFF\4\0\0\0WAVE")
+      expect(WaveInfo.new( data ).samples).to eq(0)
+    end
+    
   end
 
   describe "WaveInfo.debug" do

@@ -104,8 +104,10 @@ class WaveInfo
   def samples
     if @samples
       @samples
-    else
-      @data_size / @block_align
+    elsif @block_align.to_f.nonzero?
+      @data_size && @block_align ? @data_size / @block_align : 0.0
+    else 
+      0.0
     end
   end
 
@@ -116,7 +118,11 @@ class WaveInfo
 
   # Get the duration of the audio (in seconds).
   def duration
-    samples.to_f / sample_rate.to_f
+    if sample_rate.to_f.nonzero?
+      sample_rate ? samples.to_f / sample_rate.to_f : 0.0
+    else
+      0.0
+    end
   end
 
 
