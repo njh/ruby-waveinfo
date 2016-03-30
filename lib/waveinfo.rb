@@ -107,7 +107,7 @@ class WaveInfo
     elsif @block_align.to_f.nonzero?
       @data_size && @block_align ? @data_size / @block_align : 0.0
     else 
-      0
+      0.0
     end
   end
 
@@ -121,7 +121,7 @@ class WaveInfo
     if sample_rate.to_f.nonzero?
       sample_rate ? samples.to_f / sample_rate.to_f : 0.0
     else
-      0
+      0.0
     end
   end
 
