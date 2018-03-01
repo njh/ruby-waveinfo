@@ -7,7 +7,6 @@ Gem::Specification.new do |gem|
   gem.name        = 'waveinfo'
   gem.version     = WaveInfo::VERSION
   gem.author      = 'Nicholas J Humfrey'
-  gem.email       = 'njh@aelius.com'
   gem.homepage    = 'http://github.com/njh/ruby-waveinfo'
   gem.summary     = 'Pure-ruby gem to get the information from the headers of Wave (.wav) files.'
   gem.description = 'waveinfo is a pure-ruby gem to get the information from the headers of Wave (.wav) files.'
@@ -20,7 +19,13 @@ Gem::Specification.new do |gem|
   gem.executables   = %w(waveinfo)
   gem.require_paths = %w(lib)
 
-  if Gem.ruby_version > Gem::Version.new('1.9')
+  if Gem.ruby_version > Gem::Version.new('2.3')
+    gem.add_development_dependency 'bundler',  '>= 1.16'
+    gem.add_development_dependency 'rake',     '>= 10.2.2'
+    gem.add_development_dependency 'yard',     '>= 0.8.7'
+    gem.add_development_dependency 'rspec',    '>= 3.5.0'
+    gem.add_development_dependency 'simplecov','>= 0.9.2'
+  elsif Gem.ruby_version > Gem::Version.new('1.9')
     gem.add_development_dependency 'bundler',  '>= 1.5.0'
     gem.add_development_dependency 'rake',     '>= 0.10.0'
     gem.add_development_dependency 'yard',     '>= 0.8.0'
