@@ -19,18 +19,18 @@ Gem::Specification.new do |gem|
   gem.executables   = %w(waveinfo)
   gem.require_paths = %w(lib)
 
-  if Gem.ruby_version > Gem::Version.new('2.3')
+  if Gem.ruby_version > Gem::Version.new('2.2')
     gem.add_development_dependency 'bundler',  '>= 1.16'
     gem.add_development_dependency 'rake',     '>= 10.2.2'
     gem.add_development_dependency 'yard',     '>= 0.9.11'
     gem.add_development_dependency 'rspec',    '>= 3.5.0'
     gem.add_development_dependency 'simplecov','>= 0.9.2'
   elsif Gem.ruby_version > Gem::Version.new('1.9')
-    gem.add_development_dependency 'bundler',  '>= 1.5.0'
-    gem.add_development_dependency 'rake',     '>= 0.10.0'
-    gem.add_development_dependency 'yard',     '>= 0.8.0'
+    gem.add_development_dependency 'bundler',  '~> 1.5.0'
+    gem.add_development_dependency 'rake',     '~> 0.9.6'
+    gem.add_development_dependency 'yard',     '~> 0.8.0'
     gem.add_development_dependency 'rspec',    '~> 3.2.0'
-    gem.add_development_dependency 'simplecov'
+    gem.add_development_dependency 'simplecov','~> 0.9.2'
   elsif Gem.ruby_version > Gem::Version.new('1.8')
     gem.add_development_dependency 'bundler',  '>= 1.1.0'
     gem.add_development_dependency 'rake',     '~> 0.8.7'
